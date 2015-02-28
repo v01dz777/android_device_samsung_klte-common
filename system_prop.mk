@@ -8,6 +8,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     use.voice.path.for.pcm.voip=false \
     use.dedicated.device.for.voip=true
 
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
+
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hdcp2.rx=tz \
@@ -30,7 +34,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.netmgrd.qos.enable=true \
     persist.radio.add_power_save=1 \
-    persist.radio.apm_sim_not_pwdn=1 \
     persist.radio.lte_vrat_report=1 \
     ro.telephony.ril_class=KlteRIL
 
