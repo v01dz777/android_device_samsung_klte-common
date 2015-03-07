@@ -4,8 +4,6 @@ type sysfs_display, fs_type, sysfs_type;
 type sysfs_sec, fs_type, sysfs_type;
 type sysfs_vibeamp, fs_type, sysfs_type;
 type wifi_efs_file, file_type;
-type nfcfelica_device, file_type;
-type nfc_device, file_type;
 type felicashell_device, file_type;
 type felica_device, file_type;
 type fsslcmnd_exec, file_type;

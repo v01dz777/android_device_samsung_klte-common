@@ -34,20 +34,6 @@
 /data/.wifiver.info                                     u:object_r:wifi_data_file:s0
 /efs/wifi(/.*)?                                         u:object_r:wifi_efs_file:s0
 
-# JPN Felica Temporary Workaround
-/dev/ttyHSL2                                           u:object_r:nfcfelica_device:s0
-#/dev/ttyHSL1                                          u:object_r:nfcfelica_device:s0
-/dev/snfc_uart                                         u:object_r:nfc_device:s0
-/dev/snfc_pon                                          u:object_r:nfc_device:s0
-/dev/snfc_hsel                                         u:object_r:nfc_device:s0
-/dev/snfc_intu_poll                                    u:object_r:nfc_device:s0
-/dev/snfc_available_poll                               u:object_r:nfc_device:s0
-/dev/snfc_rfs                                          u:object_r:nfc_device:s0
-/dev/snfc_rfs_poll                                     u:object_r:nfc_device:s0
-/dev/uartcc                                            u:object_r:nfc_device:s0
-/dev/felica_cen                                        u:object_r:nfcfelica_device:s0
-/dev/snfc_cen                                          u:object_r:nfcfelica_device:s0
-
 /dev/felica                                            u:object_r:felica_device:s0
 /dev/felica_pon                                        u:object_r:felica_device:s0
 /dev/felica_rfs                                        u:object_r:felica_device:s0
