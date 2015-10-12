@@ -27,6 +27,7 @@
 
 import init.qcom.usb.rc
 import init.target.rc
+import init.carrier.rc
 
 on early-init
     # Increase max readahead size to 512 KB
