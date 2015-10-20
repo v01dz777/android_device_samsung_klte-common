@@ -1318,41 +1318,4 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor performance
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor performance
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor performance
-
-# JPN: For MobileTV [ISDBT]
-    chown system system /dev/isdbt
-    chmod 0660 /dev/isdbt
-    chown system system /dev/s3c-tsi
-    chmod 0660 /dev/s3c-tsi
-    chown system system /dev/dvb/adapter0/demux0
-    chmod 0660 /dev/dvb/adapter0/demux0
-
-# FeliCa
-    mkdir /efs/FeliCaLock 0770 system felicalock
-	
-# JPN: For MobileTV [ISDBT]
-    mkdir /data/atsc-mh 0775 system system
-    mkdir /data/one-seg 0775 system system
-    chown system system /data/atsc-mh
-    chown system system /data/one-seg
-    chmod 0775 /data/atsc-mh
-    chmod 0775 /data/one-seg
-
-# JPN: For MobileTV [ISDBT] \android\device\samsung\kltekdi\init.kltekdi.rc
-	service mobileTV /system/bin/broadcastProcessObserver
-    class main
-    user system
-    group system radio audio camera graphics inet net_bt net_bt_admin net_raw sdcard_rw sdcard_r shell mmb
-
- # Felica
-
-service mfsc /system/bin/mfsc
-    class core
-    user root
-    group system felicalock nfc
-    oneshot
-service mfdp /system/bin/mfdp
-    class core
-    user root
-    group system felicalock nfc
-    oneshot
+    
