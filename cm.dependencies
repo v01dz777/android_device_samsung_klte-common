@@ -11,10 +11,5 @@
     "account": "CyanogenMod",
     "repository": "android_external_stlport",
     "target_path": "external/stlport"
-  },
-  {
-    "account": "CyanogenMod",
-    "repository": "android_external_sony_boringssl-compat",
-    "target_path": "external/sony/boringssl-compat"
   }
 ]
