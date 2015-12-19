@@ -96,7 +96,7 @@ WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcmdhd_apsta.bin"
 
 # Sensor
-BOARD_HAVE_LEGACY_BODY_SENSOR := true
+TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
 # inherit from the proprietary version
 -include vendor/samsung/klte-common/BoardConfigVendor.mk
