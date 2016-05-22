@@ -78,6 +78,10 @@ PRODUCT_PACKAGES += \
     fingerprint.msm8974 \
     ValidityService
 
+# Gello
+PRODUCT_PACKAGES += \
+    Gello
+
 # IPv6 tethering
 PRODUCT_PACKAGES += \
     ebtables \
@@ -94,7 +98,8 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml
 
 # NFC
 ifeq ($(DEVICE_NFC_SONY),yes)
