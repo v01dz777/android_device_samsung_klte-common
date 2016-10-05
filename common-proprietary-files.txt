@@ -193,6 +193,7 @@ cameradata/Master1.bin
 cameradata/cal_data_LSCmaster.bin
 cameradata/datapattern_420sp.yuv
 cameradata/datapattern_front_420sp.yuv
+etc/C16QL_s5k2p2xx_module_info.xml
 etc/F16QL_s5k2p2xx_module_info.xml
 etc/F16QS_imx240_module_info.xml
 etc/firmware/cpp_firmware_v1_1_1.fw
@@ -223,14 +224,6 @@ vendor/lib/libwvm.so
 vendor/lib/libWVStreamControlAPI_L1.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
-# Fingerprint
-bin/vcsFPService
-lib/libfpasmtztransport.so
-lib/libvalAuth.so
-lib/libvcsfp.so
-lib/libvfmClient.so
-lib/libvfmtztransport.so
-
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/libEGL_adreno.so
@@ -250,6 +243,7 @@ vendor/lib/librs_adreno.so
 vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
+vendor/lib/libuiblur.so
 
 # Graphics firmware
 etc/firmware/a330_pfp.fw
