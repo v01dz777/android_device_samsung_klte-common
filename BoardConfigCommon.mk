@@ -32,6 +32,7 @@ TARGET_KERNEL_CONFIG := msm8974_sec_defconfig
 TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/klte
 TARGET_KERNEL_HAVE_EXFAT := true
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Audio
 BOARD_HAVE_NEW_QCOM_CSDCLIENT := true
@@ -47,6 +48,9 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 
 # CMHW
 BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
+
+# Graphics
+TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -96,6 +100,8 @@ WIFI_DRIVER_MODULE_AP_ARG   := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin 
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/dhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcmdhd_sta.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcmdhd_apsta.bin"
+WIFI_DRIVER_NVRAM_PATH_PARAM:= "/sys/module/dhd/parameters/nvram_path"
+WIFI_DRIVER_NVRAM_PATH      := "/system/etc/wifi/nvram_net.txt"
 
 # TWRP
 ifeq ($(TARGET_RECOVERY),twrp)
