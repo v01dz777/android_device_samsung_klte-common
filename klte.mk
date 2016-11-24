@@ -32,6 +32,7 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
+TARGET_BOOTANIMATION_HALF_RES := true
 
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 
@@ -86,6 +87,10 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
+# IR Blaster
+PRODUCT_PACKAGES += \
+    consumerir.msm8974
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
@@ -118,7 +123,7 @@ endif
 
 # Radio
 PRODUCT_PACKAGES += \
-    libril_shim \
+    libshim_ril \
     libprotobuf-cpp-full
 
 # Ramdisk
@@ -139,7 +144,6 @@ PRODUCT_PACKAGES += \
     macloader
 
 PRODUCT_PACKAGES += \
-    dhcpcd.conf \
     hostapd.accept \
     hostapd.deny \
     hostapd \
