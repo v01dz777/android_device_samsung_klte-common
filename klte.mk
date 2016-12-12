@@ -98,7 +98,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.msm8974
+    lights.MSM8974
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -123,8 +123,7 @@ endif
 
 # Radio
 PRODUCT_PACKAGES += \
-    libshim_ril \
-    libprotobuf-cpp-full
+    libshim_ril
 
 # Ramdisk
 PRODUCT_PACKAGES += \
