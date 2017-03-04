@@ -57,6 +57,7 @@ on init
 
 on fs
     mount_all fstab.qcom
+    write /proc/sys/vm/swappiness 100
     swapon_all fstab.qcom
 
     restorecon_recursive /efs
@@ -250,6 +251,20 @@ on post-fs-data
     mkdir /data/misc/perfd 2755 root system
     mkdir /data/system/perfd 2770 root system
 
+    # Remove symlinks to avoid issues with migrate after nandroid restores
+    # Will be recreated at end of boot
+    # Normal path
+    rm /data/data/com.android.providers.telephony/databases
+    rm /data/data/com.android.providers.telephony/shared_prefs
+
+    # COMPAT: Handle upgrade from previous implementation of this idea. If the
+    # above could not be unlinked then we have the old symlinked files
+    # scenario. Clean that up.
+    rm /data/data/com.android.providers.telephony/databases/telephony.db
+    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
+    rmdir /data/data/com.android.providers.telephony/databases
+    rmdir /data/data/com.android.providers.telephony/shared_prefs
+
     setprop vold.post_fs_data_done 1
 
 on early-boot
@@ -258,11 +273,6 @@ on early-boot
 
     # Allow subsystem (modem etc) debugging
     write /sys/module/subsystem_restart/parameters/enable_debug ${persist.sys.ssr.enable_debug}
-
-    # Remove symlinks to avoid issues with migrate after nandroid restores
-    # Will be recreated at end of boot
-    rm /data/data/com.android.providers.telephony/databases/telephony.db
-    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
 
 on boot
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
@@ -314,8 +324,6 @@ on boot
 
     # 4.3 requires this
     chmod 0644 /proc/cmdline
-
-    setprop ro.telephony.call_ring.multiple false
 
     #Set SUID bit for usbhub
     chmod 4755 /system/bin/usbhub
@@ -874,9 +882,6 @@ on boot
     chmod 0600 /dev/btlock
     chown bluetooth bluetooth /dev/btlock
 
-    # SSWAP
-    write /proc/sys/vm/swappiness 130
-
     # Sensors
     chown system system /efs/prox_cal
     chmod 0640 /efs/prox_cal
@@ -1038,9 +1043,6 @@ on property:sys.boot_completed=1
     write /sys/module/msm_thermal/core_control/enabled 0
 
     # Configure the CPU governor
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu2/online 1
-    write /sys/devices/system/cpu/cpu3/online 1
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
@@ -1077,16 +1079,9 @@ on property:sys.boot_completed=1
     rm /data/system/perfd/default_values
     start mpdecision
 
-    # Symlink telephony.db and preferred-apn.xml
-    mkdir /data/data/com.android.providers.telephony/databases 0700 radio radio
-    mkdir /data/data/com.android.providers.telephony/shared_prefs 0700 radio radio
-    symlink /data/user_de/0/com.android.providers.telephony/databases/telephony.db /data/data/com.android.providers.telephony/databases/telephony.db
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs/preferred-apn.xml /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
-
-    # Fix file contexts for the directories; needed for upgrade from earlier
-    # 7.x versions, NOOP for clean flashes
-    restorecon /data/data/com.android.providers.telephony/databases
-    restorecon /data/data/com.android.providers.telephony/shared_prefs
+    # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
 
 service charger /charger
     class charger

@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,6 +17,8 @@
 #
 
 set -e
+
+export INITIAL_COPYRIGHT_YEAR=2014
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -37,8 +40,6 @@ setup_vendor "$DEVICE_COMMON" "$VENDOR" "$CM_ROOT" true
 write_headers "klte kltechn kltechnduo klteduos kltedv kltekdi kltespr klteusc kltevzw kltedcm kltedcmactive"
 
 write_makefiles "$MY_DIR"/common-proprietary-files.txt
-
-printf '\n%s\n' "\$(call inherit-product, vendor/qcom/binaries/msm8974/graphics/graphics-vendor.mk)" >> "$PRODUCTMK"
 
 write_footers
 

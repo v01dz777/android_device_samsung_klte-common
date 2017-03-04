@@ -2,6 +2,7 @@
 <!--
 /*
 ** Copyright 2011, The Android Open Source Project
+** Copyright 2017, The LineageOS Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -41,10 +42,19 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
+        <item>2</item>
+        <item>7</item>
         <item>15</item>
-        <item>150</item>
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+        <item>400</item>
         <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
         <item>5000</item>
+        <item>10000</item>
+        <item>30000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -52,11 +62,20 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>20</item>
-        <item>80</item>
-        <item>130</item>
-        <item>190</item>
-        <item>255</item>
+        <item>13</item>   <!-- 0-2 -->
+        <item>25</item>   <!-- 3-7 -->
+        <item>32</item>   <!-- 5-15 -->
+        <item>41</item>   <!-- 15-50 -->
+        <item>52</item>   <!-- 50-100 -->
+        <item>62</item>   <!-- 100-200 -->
+        <item>69</item>   <!-- 200-400 -->
+        <item>78</item>   <!-- 400-1000 -->
+        <item>88</item>   <!-- 1000-2000 -->
+        <item>134</item>  <!-- 2000-3000 -->
+        <item>178</item>  <!-- 3000-5000 -->
+        <item>225</item>  <!-- 5000-10000 -->
+        <item>255</item>  <!-- 10000-30000 -->
+        <item>255</item> <!-- 30000+ -->
     </integer-array>
 
     <!-- Array of output values for button backlight corresponding to the LUX values
@@ -70,7 +89,6 @@
         <item>0</item>
         <item>0</item>
     </integer-array>
-
 
     <!-- Minimum screen brightness allowed by the power manager. -->
     <integer name="config_screenBrightnessDim">10</integer>
@@ -89,6 +107,10 @@
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
     <integer name="config_screenBrightnessSettingMinimum">10</integer>
+
+      <!-- Maximum screen brightness allowed by the power manager.
+         The user is forbidden from setting the brightness above this level. -->
+    <integer name="config_screenBrightnessSettingMaximum">255</integer>
 
     <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
          Please don't copy them, copy anything else. -->
@@ -264,11 +286,6 @@
 
     <bool name="config_enableWifiDisplay">true</bool>
 
-    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up.
-         The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool>
-
     <!-- Configure wifi tcp buffersizes in the form:
          rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max -->
     <string name="config_wifi_tcp_buffers" translatable="false">524288,2097152,4194304,262144,524288,1048576</string>
@@ -287,4 +304,35 @@
         <item>ehrpd:4094,87380,1048576,4096,16384,262144</item>
     </string-array>
 
+    <!-- Certain sensor firmwares break with having a batch
+         size set. By setting this to false, devices can opt
+         out of setting a batch size, which fixes rotation. -->
+    <bool name="config_useDefaultBatchingForAccel">false</bool>
+
+    <!-- Override the default detection behavior for the framework method
+         android.view.ViewConfiguration#hasPermanentMenuKey().
+         Valid settings are:
+         0 - No change. Use the default autodetection behavior.
+         1 - The device DOES have a permanent menu key; ignore autodetection.
+         2 - The device DOES NOT have a permanent menu key; ignore autodetection. -->
+    <integer name="config_overrideHasPermanentMenuKey">2</integer>
+
+    <!-- Enable blur support -->
+    <bool name="config_uiBlurEnabled">true</bool>
+
+    <!-- Values for GPS configuration -->
+    <string-array translatable="false" name="config_gpsParameters">
+        <item>XTRA_SERVER_1=http://xtrapath1.izatcloud.net/xtra3grc.bin</item>
+        <item>XTRA_SERVER_2=http://xtrapath2.izatcloud.net/xtra3grc.bin</item>
+        <item>XTRA_SERVER_3=http://xtrapath3.izatcloud.net/xtra3grc.bin</item>
+        <item>NTP_SERVER=north-america.pool.ntp.org</item>
+        <item>SUPL_VER=0x20000</item>
+        <item>SUPL_ES=0</item>
+        <item>CAPABILITIES=0x33</item>
+        <item>SUPL_HOST=supl.google.com</item>
+        <item>SUPL_PORT=7275</item>
+        <item>SUPL_MODE=1</item>
+        <item>LPP_PROFILE=0</item>
+        <item>A_GLONASS_POS_PROTOCOL_SELECT=0</item>
+    </string-array>
 </resources>
