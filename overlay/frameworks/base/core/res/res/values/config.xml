@@ -317,9 +317,6 @@
          2 - The device DOES NOT have a permanent menu key; ignore autodetection. -->
     <integer name="config_overrideHasPermanentMenuKey">2</integer>
 
-    <!-- Enable blur support -->
-    <bool name="config_uiBlurEnabled">true</bool>
-
     <!-- Values for GPS configuration -->
     <string-array translatable="false" name="config_gpsParameters">
         <item>XTRA_SERVER_1=http://xtrapath1.izatcloud.net/xtra3grc.bin</item>
