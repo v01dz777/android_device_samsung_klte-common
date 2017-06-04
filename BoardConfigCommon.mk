@@ -92,6 +92,9 @@ BOARD_SEPOLICY_DIRS += \
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
 
+# Enable real time lockscreen charging current values
+BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
+
 # TWRP Support - Optional
 ifeq ($(WITH_TWRP),true)
 -include $(LOCAL_PATH)/twrp.mk
