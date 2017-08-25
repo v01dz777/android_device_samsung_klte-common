@@ -36,7 +36,7 @@ BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
 TARGET_KERNEL_CONFIG := msm8974_sec_defconfig
 TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/klte
+TARGET_KERNEL_SOURCE := kernel/samsung/msm8974
 TARGET_KERNEL_HAVE_EXFAT := true
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
