@@ -142,7 +142,6 @@ endif
 # Radio
 PRODUCT_PACKAGES += \
     libsecnativefeature \
-    libsecril-client \
     libshim_ril
 
 # Ramdisk
