@@ -37,7 +37,11 @@ fi
 setup_vendor "$DEVICE_COMMON" "$VENDOR" "$CM_ROOT" true
 
 # Copyright headers and common guards
+<<<<<<< HEAD
 write_headers "klte kltechn kltechnduo klteduos kltedv kltekdi kltespr klteusc kltevzw kltedcm kltedcmactive"
+=======
+write_headers "klte kltechn kltechnduo klteduos kltedv kltekdi kltekor kltespr kltesprsports klteusc kltevzw"
+>>>>>>> c06ff2c... klte-common: Add kltesprsports to makefile guards
 
 write_makefiles "$MY_DIR"/common-proprietary-files.txt
 
