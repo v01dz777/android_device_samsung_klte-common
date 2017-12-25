@@ -299,7 +299,7 @@ void send_error_notice(void* device, int error_info_int) {
     vcs_fingerprint_device_t* vdev = (vcs_fingerprint_device_t*)device;
     fingerprint_error_t error_info = (fingerprint_error_t)error_info_int;
 
-    fingerprint_msg_t msg = {0};
+    fingerprint_msg_t msg;
     msg.type = FINGERPRINT_ERROR;
     msg.data.error = error_info;
     ALOGV("recevied error notice! error_info=%d", (int)error_info);
@@ -316,7 +316,7 @@ void send_acquired_notice(void* device, int acquired_ret) {
     vcs_fingerprint_device_t* vdev = (vcs_fingerprint_device_t*)device;
     fingerprint_acquired_info_t acquired_info = convert_ret_to_acquired_info(acquired_ret);
 
-    fingerprint_msg_t acqu_msg = {0};
+    fingerprint_msg_t acqu_msg;
     acqu_msg.type = FINGERPRINT_ACQUIRED;
     acqu_msg.data.acquired.acquired_info = acquired_info;
     ALOGI("acqu_info=%d", (int)acquired_info);
@@ -343,7 +343,7 @@ void send_enroll_notice(void* device, int fid, int remaining) {
 
     pthread_mutex_lock(&vdev->lock);
 
-    fingerprint_msg_t msg = {0};
+    fingerprint_msg_t msg;
     msg.type = FINGERPRINT_TEMPLATE_ENROLLING;
     msg.data.enroll.finger.fid = fid;
     msg.data.enroll.samples_remaining = remaining;
@@ -360,7 +360,7 @@ void send_authenticated_notice(void* device, int fid) {
 
     send_acquired_notice(vdev, FINGERPRINT_ACQUIRED_GOOD);
 
-    fingerprint_msg_t auth_msg = {0};
+    fingerprint_msg_t auth_msg;
     auth_msg.type = FINGERPRINT_AUTHENTICATED;
     auth_msg.data.authenticated.finger.fid = fid;
     auth_msg.data.authenticated.finger.gid = 0;  // unused
@@ -386,7 +386,7 @@ void send_remove_notice(void* device, int fid) {
     ALOGV("----------------> %s ----------------->fid=%d", __FUNCTION__, fid);
     vcs_fingerprint_device_t* vdev = (vcs_fingerprint_device_t*)device;
 
-    fingerprint_msg_t msg = {0};
+    fingerprint_msg_t msg;
     msg.type = FINGERPRINT_TEMPLATE_REMOVED;
     msg.data.removed.finger.fid = fid;
 
@@ -543,10 +543,9 @@ static int fingerprint_cancel(struct fingerprint_device *device) {
     return ret;
 }
 
-static int fingerprint_enumerate(struct fingerprint_device *device,
-        fingerprint_finger_id_t *results, uint32_t *max_size) {
+static int fingerprint_enumerate(struct fingerprint_device *device) {
     ALOGV("----------------> %s ----------------->", __FUNCTION__);
-    if (device == NULL || results == NULL || max_size == NULL) {
+    if (device == NULL) {
         ALOGE("Cannot enumerate saved fingerprints with uninitialized params");
         return -1;
     }
@@ -677,7 +676,7 @@ static int fingerprint_open(const hw_module_t* module, const char __unused *id,
     }
 
     vdev->device.common.tag = HARDWARE_DEVICE_TAG;
-    vdev->device.common.version = HARDWARE_MODULE_API_VERSION(2, 0);
+    vdev->device.common.version = FINGERPRINT_MODULE_API_VERSION_2_1;
     vdev->device.common.module = (struct hw_module_t*)module;
     vdev->device.common.close = fingerprint_close;
 
@@ -738,7 +737,7 @@ static struct hw_module_methods_t fingerprint_module_methods = {
 fingerprint_module_t HAL_MODULE_INFO_SYM = {
     .common = {
         .tag                = HARDWARE_MODULE_TAG,
-        .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_0,
+        .module_api_version = FINGERPRINT_MODULE_API_VERSION_2_1,
         .hal_api_version    = HARDWARE_HAL_API_VERSION,
         .id                 = FINGERPRINT_HARDWARE_MODULE_ID,
         .name               = "KLTE Fingerprint HAL",

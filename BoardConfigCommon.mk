@@ -20,29 +20,8 @@ LOCAL_PATH := device/samsung/klte-common
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
-# Use Snapdragon LLVM if available on build server
-TARGET_USE_SDCLANG := true
-
 # ADB Legacy Interface
 TARGET_USES_LEGACY_ADB_INTERFACE := true
-
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := MSM8974
-
-# Kernel
-BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 zcache.enabled=1 zcache.compressor=lz4 androidboot.bootdevice=msm_sdcc.1
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
-# bootloader restricts the cmdline length and we run in to problems if we add androidboot.selinux=permissive. remove it for O bringup.
-#BOARD_KERNEL_CMDLINE += console=null
-BOARD_KERNEL_IMAGE_NAME := zImage
-BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_SEPARATED_DT := true
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
-BOARD_CUSTOM_BOOTIMG := true
-BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
-LZMA_RAMDISK_TARGETS := recovery
-TARGET_KERNEL_SOURCE := kernel/samsung/msm8974
 
 # Audio
 BOARD_HAVE_NEW_QCOM_CSDCLIENT := true
@@ -57,6 +36,9 @@ BOARD_CUSTOM_BT_CONFIG := $(LOCAL_PATH)/bluetooth/vnd_klte.txt
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_SAMSUNG_BLUETOOTH := true
 
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := MSM8974
+
 # Camera
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -70,8 +52,18 @@ TARGET_KERNEL_HAVE_EXFAT := true
 # HIDL
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
 
-# Binder API version
-TARGET_USES_64_BIT_BINDER := true
+# Kernel
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_CMDLINE := console=null androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 zcache.enabled=1 zcache.compressor=lz4 androidboot.bootdevice=msm_sdcc.1
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_IMAGE_NAME := zImage
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_SEPARATED_DT := true
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
+BOARD_CUSTOM_BOOTIMG := true
+BOARD_CUSTOM_BOOTIMG_MK := hardware/samsung/mkbootimg.mk
+LZMA_RAMDISK_TARGETS := recovery
+TARGET_KERNEL_SOURCE := kernel/samsung/msm8974
 
 # Legacy BLOB Support
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
@@ -85,6 +77,9 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
 # Power HAL
 TARGET_POWERHAL_SET_INTERACTIVE_EXT := $(LOCAL_PATH)/power/power_ext.c
 TARGET_POWERHAL_VARIANT := qcom
+
+# Properties
+TARGET_SYSTEM_PROP += device/samsung/klte-common/system.prop
 
 # Radio
 BOARD_PROVIDES_LIBRIL := true
@@ -101,10 +96,10 @@ BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 
 # SELinux
-#-include device/qcom/sepolicy/sepolicy.mk
-#
-#BOARD_SEPOLICY_DIRS += \
-#    device/samsung/klte-common/sepolicy
+-include device/qcom/sepolicy/sepolicy.mk
+
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/klte-common/sepolicy
 
 # Sensors
 TARGET_NO_SENSOR_PERMISSION_CHECK := true
@@ -113,6 +108,9 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 ifeq ($(WITH_TWRP),true)
 -include $(LOCAL_PATH)/twrp.mk
 endif
+
+# Use Snapdragon LLVM if available on build server
+TARGET_USE_SDCLANG := true
 
 # Wifi
 BOARD_HAVE_SAMSUNG_WIFI := true
@@ -123,11 +121,11 @@ BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_BAND := 802_11_ABG
-WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_DRIVER_MODULE_AP_ARG   := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_ARG      := "firmware_path=/vendor/etc/wifi/bcmdhd_sta.bin nvram_path=/vendor/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_AP_ARG   := "firmware_path=/vendor/etc/wifi/bcmdhd_apsta.bin nvram_path=/vendor/etc/wifi/nvram_net.txt"
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/dhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcmdhd_sta.bin"
-WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA     := "/vendor/etc/wifi/bcmdhd_sta.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/vendor/etc/wifi/bcmdhd_apsta.bin"
 
 # inherit from the proprietary version
 -include vendor/samsung/klte-common/BoardConfigVendor.mk
