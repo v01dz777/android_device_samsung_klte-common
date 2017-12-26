@@ -926,10 +926,12 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
 
 service macloader /system/bin/macloader
     class late_start
+    user root
     oneshot
-    seclabel u:r:macloader:s0
+#    seclabel u:r:macloader:s0
 
 on property:wlan.driver.status=ok
+#on property:sys.boot_completed=1
     start macloader
 
 on property:init.svc.macloader=stopped
