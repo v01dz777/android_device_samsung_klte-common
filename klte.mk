@@ -185,10 +185,13 @@ PRODUCT_PACKAGES += \
     hostapd.accept \
     hostapd.deny \
     libnetcmdiface \
-    macloader \
     wificond \
     wpa_supplicant \
     wpa_supplicant.conf
+
+#workaround macloader on /system/vender/bin
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/macloader/macloader:system/bin/macloader
 
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
