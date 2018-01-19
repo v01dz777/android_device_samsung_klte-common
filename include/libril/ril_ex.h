@@ -22,7 +22,7 @@
 
 #define NUM_ELEMS_SOCKET(a)     (sizeof (a) / sizeof (a)[0])
 
-void rilEventAddWakeup_helper(struct ril_event *ev);
+//void rilEventAddWakeup_helper(struct ril_event *ev);
 int blockingWrite_helper(int fd, void* data, size_t len);
 
 enum SocketWakeType {DONT_WAKE, WAKE_PARTIAL};
