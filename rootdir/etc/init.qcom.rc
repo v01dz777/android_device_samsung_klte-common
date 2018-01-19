@@ -27,7 +27,6 @@
 #
 
 import init.qcom.usb.rc
-import init.dsds.rc
 import init.carrier.rc
 
 on early-init
