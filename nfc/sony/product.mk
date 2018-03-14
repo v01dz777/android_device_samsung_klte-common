@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+DEVICE_NFC_SONY := yes
 
 # NFC
 #$(call inherit-product, device/samsung/klte-common/nfc/product.mk)
@@ -30,9 +31,11 @@ PRODUCT_COPY_FILES += \
 
 #------------------------
 PRODUCT_PACKAGES += \
-    android.hardware.nfc@1.0-impl-bcm \
+    android.hardware.nfc@1.0-impl \
     android.hardware.nfc@1.0-service \
-    NfcSony 
+    com.android.nfc_extras \
+    NfcSony \
+    Tag
 
 # Ramdisk for FeliCa
 PRODUCT_PACKAGES += \
